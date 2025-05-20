@@ -4,10 +4,43 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>Copy of FiveCoinWidgetExtension.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>2</integer>
+		</dict>
 		<key>FiveCoin.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>0</integer>
+		</dict>
+		<key>FiveCoinWidgetExtension.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>1</integer>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>B32E6D072DC9030B00A3D823</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>B32E6D172DC9030C00A3D823</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>B32E6D212DC9030C00A3D823</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>B364B13F2DD8C2FC0047C86E</key>
+		<dict>
+			<key>primary</key>
+			<true/>
 		</dict>
 	</dict>
 </dict>
