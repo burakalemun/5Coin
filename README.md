@@ -46,7 +46,7 @@ Open with Xcode and run on Simulator.
 | Işık Modu / Light Mode             | Karanlık Mod / Dark Mode          |
 | ---------------------------------- | --------------------------------- |
 | ![Simulator Screenshot - iPhone 16 Pro - 2025-05-07 at 21 09 41](https://github.com/user-attachments/assets/37782ed8-efb1-4716-b4dc-6bc534ab9c65)| ![Simulator Screenshot - iPhone 16 Pro - 2025-05-07 at 21 11 17](https://github.com/user-attachments/assets/c6c50575-7c1e-4e36-964b-a1993d8362f1)|
-| ![Simulator Screenshot - iPhone 16 Pro - 2025-05-20 at 21 50 48](https://github.com/user-attachments/assets/3cb05c63-c179-4fda-9344-31adde352662)| ![Simulator Screenshot - iPhone 16 Pro - 2025-05-20 at 21 42 32](https://github.com/user-attachments/assets/0ac42808-7ea5-41c4-a964-2492d3b8cfbd)|
+| ![Simulator Screenshot - iPhone 16 Pro - 2025-05-20 at 21 50 48](https://github.com/user-attachments/assets/3b280550-75fe-41c3-9131-7f5ea1924845)| ![Simulator Screenshot - iPhone 16 Pro - 2025-05-20 at 21 42 32](https://github.com/user-attachments/assets/ec764d0f-ea00-405d-ab3f-a355a033950c)|
 
 
 ---
