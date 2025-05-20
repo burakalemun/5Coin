@@ -7,6 +7,7 @@
 
 import Foundation
 import Combine
+import WidgetKit
 
 class CoinViewModel: ObservableObject {
     @Published var selectedCoins: [Coin] = [] {
@@ -116,6 +117,7 @@ class CoinViewModel: ObservableObject {
         } catch {
             print("Coin encode hatası: \(error)")
         }
+        WidgetCenter.shared.reloadAllTimelines()
     }
 
     private func loadSelectedCoins() {

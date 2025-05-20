@@ -94,7 +94,7 @@ struct CoinProvider: TimelineProvider {
         print("Timeline oluşturuluyor... Coin sayısı: \(coins.count)")
         
         let entry = CoinEntry(date: Date(), coins: coins)
-        let nextUpdate = Calendar.current.date(byAdding: .minute, value: 5, to: Date())!
+        let nextUpdate = Calendar.current.date(byAdding: .second, value: 30, to: Date())!
         
         let timeline = Timeline(entries: [entry], policy: .after(nextUpdate))
         completion(timeline)

@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import WidgetKit
 
 struct ContentView: View {
     @StateObject var viewModel = CoinViewModel()
