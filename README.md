@@ -1,35 +1,41 @@
-````md
-5Coin 📱🚀
+# 🪙 5Coin 📱🚀
 
-5Coin, kullanıcıların maksimum 5 adet kripto para seçerek fiyatlarını anlık olarak takip edebileceği, sade ve kullanıcı dostu bir iOS uygulamasıdır.  
-5Coin is a clean and user-friendly iOS app that allows users to select up to 5 cryptocurrencies and track their real-time prices.
-
----
-
-🧠 Özellikler / Features
-
-- 🔍 Coin arama ve filtreleme / Search and filter coins  
-- ⭐ Maksimum 5 coin seçimi / Select up to 5 coins  
-- 🔄 Gerçek zamanlı API verisi (CoinGecko) / Real-time data via CoinGecko API  
-- 💾 Seçilen coin’leri saklama / Save selected coins with UserDefaults  
-- 🎯 SwiftUI + Combine altyapısı / Built with SwiftUI + Combine
+**5Coin**, kullanıcıların hem merkezi (CoinGecko) hem de merkeziyetsiz (DexScreener) coin’leri arayıp seçebildiği, bu coin’ler için sipariş (order) ekleyebildiği sade ve şık bir iOS uygulamasıdır.  
+**5Coin** is a sleek iOS app where users can search and select both centralized (CoinGecko) and decentralized (DexScreener) coins, and add orders to track them.
 
 ---
 
-⚙️ Teknolojiler / Tech Stack
+## 🧠 Özellikler / Features
+
+- 🔍 Coin arama & filtreleme (CoinGecko + DexScreener) / Search & filter coins from CoinGecko & DexScreener  
+- ⭐ Coin seçimi (maksimum 5 adet) / Select up to 5 coins  
+- ➕ Coin bazlı sipariş (order) ekleme / Add buy/sell orders for selected coins  
+- 📋 Sipariş listesi görünümü / View all your tracked orders  
+- 🔄 Gerçek zamanlı fiyat verisi / Live price data  
+- 💾 Seçilen coin’leri saklama (AppStorage + UserDefaults) / Save selected coins locally  
+- 🎯 SwiftUI + Combine altyapısı / Built with SwiftUI & Combine
+
+---
+
+## ⚙️ Teknolojiler / Tech Stack
 
 - SwiftUI  
 - Combine  
 - CoinGecko API  
+- DexScreener API  
+- AppStorage & UserDefaults  
+- MVVM mimarisi  
+- Custom View Components (ItemCard, ItemInfo, SearchBar, etc.)
 
-`````
+---
+
 ## 🛠 Kurulum / Setup
 
 Projeyi lokalinde çalıştırmak için aşağıdaki adımları izle:
 
 To run the project locally, follow these steps:
-```bash
 
+```bash
 git clone https://github.com/burakalemun/5Coin.git
 cd 5Coin
 open 5Coin.xcodeproj
@@ -41,13 +47,64 @@ Open with Xcode and run on Simulator.
 
 ---
 
+## 📂 Dosya Yapısı / File Structure
+```
+Views/
+│
+├── Home/
+│   ├── ContentView.swift
+│   ├── OrdersListView.swift
+│   └── SearchBar.swift
+│
+├── CoinSelection/
+│   ├── CoinSelectionView.swift
+│   ├── ItemCardView.swift
+│   └── ItemInfoView.swift
+│
+└── Order/
+    └── AddOrderSheet.swift
+```
+
+---
+
 ## 📸 Ekran Görüntüleri / Screenshots
 
-| Işık Modu / Light Mode             | Karanlık Mod / Dark Mode          |
-| ---------------------------------- | --------------------------------- |
-| ![Simulator Screenshot - iPhone 16 Pro - 2025-05-07 at 21 09 41](https://github.com/user-attachments/assets/37782ed8-efb1-4716-b4dc-6bc534ab9c65)| ![Simulator Screenshot - iPhone 16 Pro - 2025-05-07 at 21 11 17](https://github.com/user-attachments/assets/c6c50575-7c1e-4e36-964b-a1993d8362f1)|
-| ![Simulator Screenshot - iPhone 16 Pro - 2025-05-20 at 21 50 48](https://github.com/user-attachments/assets/3b280550-75fe-41c3-9131-7f5ea1924845)| ![Simulator Screenshot - iPhone 16 Pro - 2025-05-20 at 21 42 32](https://github.com/user-attachments/assets/ec764d0f-ea00-405d-ab3f-a355a033950c)|
-
+<table>
+  <tr>
+    <th>Merkezi Coin / Centralized Coin</th>
+    <th>Merkeziyetsiz Coin / Decentralized Coin</th>
+  </tr>
+  <tr>
+    <td align="center">
+      <img src="https://github.com/user-attachments/assets/3b120bed-bdbf-4b03-b356-da4ffb2049f1" width="500"><br>
+      <em>ContentView</em>
+    </td>
+    <td align="center">
+      <img src="https://github.com/user-attachments/assets/4e261d6b-56ac-45e2-9a39-8c3205958cd2" width="500"><br>
+      <em>ContentView</em>
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+      <img src="https://github.com/user-attachments/assets/455ce56d-927f-4696-96e4-ba3c8d892438" width="500"><br>
+      <em>CoinSelectionView</em>
+    </td>
+    <td align="center">
+      <img src="https://github.com/user-attachments/assets/4e2e5ded-5bca-4359-aec5-c8bddc356d35" width="500"><br>
+      <em>CoinSelectionView</em>
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+      <img src="https://github.com/user-attachments/assets/40807943-45b5-425a-9b7d-e430a8eb5005" width="500"/></br>
+      <em>AddOrderSheet</em>
+    </td>
+    <td align="center">
+      <img src="https://github.com/user-attachments/assets/3834a75b-a353-4bbf-9a75-c51604d113fb" width="500"/></br>
+      <em>OrdersListView</em>
+    </td>
+  </tr>
+</table>
 
 ---
 
