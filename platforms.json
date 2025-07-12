@@ -1,0 +1,5 @@
+"platforms": {
+  "solana": "TOKEN_ADDRESS_ON_SOLANA",
+  "ethereum": "TOKEN_ADDRESS_ON_ETHEREUM",
+  ...
+}

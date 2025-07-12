@@ -5,6 +5,7 @@
 //  Created by Burak Kaya on 5.05.2025.
 //
 
+
 import Foundation
 
 struct Coin: Identifiable, Codable, Equatable {
@@ -26,7 +27,8 @@ struct Coin: Identifiable, Codable, Equatable {
     let circulatingSupply: Double?
     let totalSupply: Double?
     let maxSupply: Double?
-    
+    let platforms: [String: String]?
+
     enum CodingKeys: String, CodingKey {
         case id
         case symbol
@@ -46,11 +48,6 @@ struct Coin: Identifiable, Codable, Equatable {
         case circulatingSupply = "circulating_supply"
         case totalSupply = "total_supply"
         case maxSupply = "max_supply"
+        case platforms
     }
-    
-}
-
-
-struct UserPreferences: Codable {
-    var selectedCoins: [Coin] = []
 }

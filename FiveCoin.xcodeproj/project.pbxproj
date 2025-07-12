@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B35F7BC72E01D65200109F00 /* platforms.json in Resources */ = {isa = PBXBuildFile; fileRef = B35F7BC62E01D65200109F00 /* platforms.json */; };
 		B364B1412DD8C2FC0047C86E /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3D1C1E62DCC299400550A53 /* WidgetKit.framework */; };
 		B364B1422DD8C2FC0047C86E /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3D1C1E82DCC299400550A53 /* SwiftUI.framework */; };
 		B364B1532DD8C2FE0047C86E /* FiveCoinWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = B364B1402DD8C2FC0047C86E /* FiveCoinWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -54,6 +55,7 @@
 		B32E6D082DC9030B00A3D823 /* FiveCoin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FiveCoin.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B32E6D182DC9030C00A3D823 /* FiveCoinTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FiveCoinTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B32E6D222DC9030C00A3D823 /* FiveCoinUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FiveCoinUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B35F7BC62E01D65200109F00 /* platforms.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = platforms.json; sourceTree = "<group>"; };
 		B364B1402DD8C2FC0047C86E /* FiveCoinWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = FiveCoinWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		B38165CA2DDCC963003C619B /* FiveCoinWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FiveCoinWidgetExtension.entitlements; sourceTree = "<group>"; };
 		B3D1C1E62DCC299400550A53 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
@@ -80,7 +82,12 @@
 			membershipExceptions = (
 				Extension/Extensions.swift,
 				Models/Coin.swift,
+				Models/DexScreenerData.swift,
+				Models/Order.swift,
+				Models/SelectedItem.swift,
 				ViewModels/CoinViewModel.swift,
+				ViewModels/CombinedViewModel.swift,
+				ViewModels/OrderViewModel.swift,
 			);
 			target = B364B13F2DD8C2FC0047C86E /* FiveCoinWidgetExtension */;
 		};
@@ -169,6 +176,7 @@
 				B32E6D1B2DC9030C00A3D823 /* FiveCoinTests */,
 				B32E6D252DC9030C00A3D823 /* FiveCoinUITests */,
 				B364B1432DD8C2FC0047C86E /* FiveCoinWidget */,
+				B35F7BC62E01D65200109F00 /* platforms.json */,
 				B3D1C1E52DCC299400550A53 /* Frameworks */,
 				B32E6D092DC9030B00A3D823 /* Products */,
 			);
@@ -342,6 +350,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B35F7BC72E01D65200109F00 /* platforms.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

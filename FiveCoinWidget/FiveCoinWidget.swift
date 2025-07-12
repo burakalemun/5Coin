@@ -13,50 +13,15 @@ struct FiveCoinWidgetEntryView : View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
-            ForEach(entry.coins.prefix(1)) { coin in
-                HStack(spacing: 8) {
-                    if let logoURL = coin.logoURL, let url = URL(string: logoURL) {
-                        AsyncImage(url: url) { phase in
-                            if let image = phase.image {
-                                image
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(width: 24, height: 24)
-                            } else {
-                                ProgressView()
-                                    .frame(width: 24, height: 24)
-                            }
-                        }
-                    } else {
-                        Image(systemName: "questionmark.circle.fill")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 24, height: 24)
-                    }
-                    
-                    Text(coin.name)
-                        .font(.system(size: 18, weight: .bold))
+            if !entry.coins.isEmpty {
+                ForEach(entry.coins.prefix(1)) { coin in
+                    CoinRow(coin: coin)
                 }
-                                
-                VStack(alignment: .leading, spacing: 6) {
-                    Text("$ \(coin.currentPrice?.formattedTurkishStyle ?? "-")")
-                        .font(.system(size: 16, weight: .semibold))
-                    
-                    HStack {
-                        Text("Daily:")
-                            .font(.system(size: 16, weight: .semibold))
-                        
-                        if let change = coin.priceChangePercentage24h {
-                            Text("\(String(format: "%.2f", change))%")
-                                .foregroundColor(change >= 0 ? .green : .red)
-                                .font(.body)
-                                .fontWeight(.medium)
-                        } else {
-                            Text("N/A")
-                                .font(.body)
-                                .foregroundColor(.gray)
-                        }
-                    }
+            }
+
+            if !entry.dexPairs.isEmpty {
+                ForEach(entry.dexPairs.prefix(1)) { pair in
+                    DexPairRow(pair: pair)
                 }
             }
         }
@@ -67,9 +32,61 @@ struct FiveCoinWidgetEntryView : View {
     }
 }
 
+struct CoinRow: View {
+    let coin: Coin
+
+    var body: some View {
+        HStack(spacing: 8) {
+            if let logoURL = coin.logoURL, let url = URL(string: logoURL) {
+                AsyncImage(url: url) { phase in
+                    if let image = phase.image {
+                        image.resizable().scaledToFit().frame(width: 24, height: 24)
+                    } else {
+                        ProgressView().frame(width: 24, height: 24)
+                    }
+                }
+            } else {
+                Image(systemName: "questionmark.circle.fill")
+                    .resizable().scaledToFit().frame(width: 24, height: 24)
+            }
+
+            VStack(alignment: .leading, spacing: 4) {
+                Text(coin.name).font(.system(size: 16, weight: .bold))
+
+                Text("$ \(coin.currentPrice?.formattedTurkishStyle ?? "-")")
+                    .font(.subheadline)
+
+                if let change = coin.priceChangePercentage24h {
+                    Text("\(String(format: "%.2f", change))%")
+                        .font(.caption)
+                        .foregroundColor(change >= 0 ? .green : .red)
+                }
+            }
+        }
+    }
+}
+
+struct DexPairRow: View {
+    let pair: DexScreenerPair
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 4) {
+            Text("\(pair.baseToken?.symbol?.uppercased() ?? "N/A") / \(pair.quoteToken?.symbol?.uppercased() ?? "N/A")")
+                .font(.system(size: 16, weight: .bold))
+
+            if let price = pair.priceUsd {
+                Text("Price: $\(price)")
+                    .font(.subheadline)
+            }
+        }
+    }
+}
+
+
 struct CoinEntry: TimelineEntry {
     let date: Date
     let coins: [Coin]
+    let dexPairs: [DexScreenerPair]
     
 }
 
@@ -79,25 +96,25 @@ struct CoinProvider: TimelineProvider {
     
     func placeholder(in context: Context) -> CoinEntry {
         print("Placeholder çağrıldı")
-        return CoinEntry(date: Date(), coins: [])
+        return CoinEntry(date: Date(), coins: [], dexPairs: [])
     }
 
     func getSnapshot(in context: Context, completion: @escaping (CoinEntry) -> Void) {
         let coins = loadSelectedCoins()
         print("Snapshot çağrıldı - Coin sayısı: \(coins.count)")
-        let entry = CoinEntry(date: Date(), coins: coins)
+        let entry = CoinEntry(date: Date(), coins: coins, dexPairs: [])
         completion(entry)
     }
 
     func getTimeline(in context: Context, completion: @escaping (Timeline<CoinEntry>) -> Void) {
         let coins = loadSelectedCoins()
+        let dexPairs = loadSelectedDexPairs()
         print("Timeline oluşturuluyor... Coin sayısı: \(coins.count)")
         
-        let entry = CoinEntry(date: Date(), coins: coins)
+        let entry = CoinEntry(date: Date(), coins: coins, dexPairs: dexPairs)
         let nextUpdate = Calendar.current.date(byAdding: .second, value: 30, to: Date())!
-        
-        let timeline = Timeline(entries: [entry], policy: .after(nextUpdate))
-        completion(timeline)
+
+        completion(Timeline(entries: [entry], policy: .after(nextUpdate)))
     }
 
     private func loadSelectedCoins() -> [Coin] {
@@ -115,8 +132,22 @@ struct CoinProvider: TimelineProvider {
             return []
         }
     }
+    
+    private func loadSelectedDexPairs() -> [DexScreenerPair] {
+        guard let data = userDefaults?.data(forKey: "selectedDexPairs") else {
+            print("Widget: DEX verisi bulunamadı.")
+            return []
+        }
 
-
+        do {
+            let decoded = try JSONDecoder().decode([DexScreenerPair].self, from: data)
+            print("Widget: \(decoded.count) DEX coin yüklendi.")
+            return decoded
+        } catch {
+            print("Widget: Decode hatası - \(error)")
+            return []
+        }
+    }
 }
 
 struct FiveCoinWidget: Widget {
@@ -132,6 +163,23 @@ struct FiveCoinWidget: Widget {
         }
 }
 
+let sampleDex = DexScreenerPair(
+    chainId: nil,
+    dexId: nil,
+    url: nil,
+    pairAddress: "0x123",
+    labels: nil,
+    baseToken: Token(address: nil, name: "Ethereum", symbol: "ETH"),
+    quoteToken: Token(address: nil, name: nil, symbol: nil),
+    priceNative: nil,
+    priceUsd: "1800",
+    volume: nil,
+    priceChange: nil,
+    liquidity: nil,
+    fdv: nil,
+    marketCap: nil,
+    pairCreatedAt: nil
+)
 let sampleCoin = Coin(
     id: "bitcoin",
     symbol: "btc",
@@ -150,7 +198,8 @@ let sampleCoin = Coin(
     marketCapChangePercentage24h: 0.8,
     circulatingSupply: 19000000,
     totalSupply: 21000000,
-    maxSupply: 21000000
+    maxSupply: 21000000,
+    platforms: ["solana": "0x123456789abcdef"]
 )
 
 let sampleEthereum = Coin(
@@ -171,7 +220,9 @@ let sampleEthereum = Coin(
     marketCapChangePercentage24h: 2.0,
     circulatingSupply: 120000000,
     totalSupply: 120000000,
-    maxSupply: nil
+    maxSupply: nil,
+    platforms: ["solana": "0x123456789abcdef"]
+
 )
 
 #Preview(as: .systemSmall) {
@@ -179,6 +230,8 @@ let sampleEthereum = Coin(
 } timeline: {
     CoinEntry(
         date: Date(),
-        coins: [sampleCoin, sampleEthereum]
+        coins: [sampleCoin],
+        dexPairs: [sampleDex]
     )
 }
+
